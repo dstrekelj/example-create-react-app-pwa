@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "start": "node-dev src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "node-dev": "^7.1.0"
+  }
+}

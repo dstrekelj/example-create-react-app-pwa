@@ -1,4 +1,12 @@
-const BASE_API_URL = "http://localhost:8080";
+/**
+ * @note We're using an Express proxy server for the project to work in
+ * the sandbox environment. The proxy server redirects all requests
+ * prefixed with "/api" to the backend API server. A request to
+ * "/api/notes" is thus redirected to "localhost:8080/notes". You may
+ * want to use a different URL depending on your local setup.
+ */
+
+const BASE_API_URL = "/api";
 
 async function _fetch(url, options) {
   const response = await fetch(url, {

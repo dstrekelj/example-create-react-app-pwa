@@ -17,7 +17,6 @@ export const useApi = () => {
       } catch (error) {
         console.error(error);
         setError(error);
-        setIsStale(false);
       }
     },
     [error, setError],

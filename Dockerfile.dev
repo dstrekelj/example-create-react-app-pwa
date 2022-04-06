@@ -1,0 +1,40 @@
+FROM ubuntu:20.04
+
+WORKDIR /usr/app
+
+RUN apt update && apt install -y curl
+
+## Update Node and NPM via NVM
+ENV NODE_VERSION=16.14.2
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+ENV NVM_DIR=/root/.nvm
+RUN . "$NVM_DIR/nvm.sh" && nvm install ${NODE_VERSION}
+RUN . "$NVM_DIR/nvm.sh" && nvm use v${NODE_VERSION}
+RUN . "$NVM_DIR/nvm.sh" && nvm alias default v${NODE_VERSION}
+ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
+RUN node --version
+RUN npm --version
+
+## Set up application folders
+RUN mkdir client && mkdir server && mkdir proxy
+COPY package.json ./package.json
+COPY package-lock.json ./package-lock.json
+COPY client ./client
+COPY server ./server
+COPY proxy ./proxy
+RUN npm ci
+RUN cd ./client && npm ci
+RUN cd ./server && npm ci
+RUN cd ./proxy && npm ci
+
+## Fixing etc/hosts
+RUN echo "127.0.0.1       localhost" >> /etc/hosts && \
+    echo "::1     localhost ip6-localhost ip6-loopback" >> /etc/hosts  && \
+    echo "fe00::0 ip6-localnet" >> /etc/hosts && \
+    echo "ff00::0 ip6-mcastprefix" >> /etc/hosts && \
+    echo "ff02::1 ip6-allnodes" >> /etc/hosts && \
+    echo "ff02::2 ip6-allrouters" >> /etc/hosts && \
+    echo "172.17.0.3      e2d7ddabb2c5" >> /etc/hosts
+
+## Installing Tmux
+RUN  apt-get -y install tmux

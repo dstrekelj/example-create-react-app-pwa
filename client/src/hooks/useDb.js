@@ -1,20 +1,10 @@
-import { useCallback, useContext, useEffect, useState } from "react";
-import * as remote from "../services/api";
-import * as local from "../services/db";
-import { DeviceContext } from "../contexts/DeviceContext";
+import { useCallback, useState } from "react";
+import * as db from "../services/db";
 
-export const useApi = () => {
-  const { online } = useContext(DeviceContext);
-
+export const useDb = () => {
   const [notes, setNotes] = useState([]);
   const [isStale, setIsStale] = useState(true);
   const [error, setError] = useState(null);
-
-  const api = online ? remote : local;
-
-  useEffect(() => {
-    setIsStale(true);
-  }, [online]);
 
   const handleError = useCallback(
     async function (f) {
@@ -35,47 +25,38 @@ export const useApi = () => {
   const getNotes = useCallback(
     async () =>
       handleError(async () => {
-        const response = await api.getAll();
+        const response = await db.getAll();
         setNotes(response);
         setIsStale(false);
       }),
-    [api, handleError, setNotes, setIsStale],
+    [handleError, setNotes, setIsStale],
   );
 
   const postNote = useCallback(
     async ({ text }) =>
       handleError(async () => {
-        const note = await api.add({ text });
-        if (online) {
-          await local.add(note);
-        }
+        await db.add({ text });
         setIsStale(true);
       }),
-    [api, online, handleError, setIsStale],
+    [handleError, setIsStale],
   );
 
   const putNote = useCallback(
     async (id, { text }) =>
       handleError(async () => {
-        await api.put(id, { id, text });
-        if (online) {
-          await local.put(id, { id, text });
-        }
+        await db.put(id, { id, text });
         setIsStale(true);
       }),
-    [api, online, handleError, setIsStale],
+    [handleError, setIsStale],
   );
 
   const deleteNote = useCallback(
     async (id) =>
       handleError(async () => {
-        await api.remove(id);
-        if (online) {
-          await local.remove(id);
-        }
+        await db.remove(id);
         setIsStale(true);
       }),
-    [api, online, handleError, setIsStale],
+    [handleError, setIsStale],
   );
 
   return {

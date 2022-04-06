@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { AppProvider } from "./contexts/AppContext";
+import { DeviceProvider } from "./contexts/DeviceContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppProvider>
-      <App />
-    </AppProvider>
+    <DeviceProvider>
+      <AppProvider>
+        <App />
+      </AppProvider>
+    </DeviceProvider>
   </React.StrictMode>,
   document.getElementById("root"),
 );

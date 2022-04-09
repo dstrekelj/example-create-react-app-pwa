@@ -1,8 +1,10 @@
 {
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "start:prod": "NODE_ENV=production node index.js"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.3",
     "http-proxy-middleware": "^2.0.4"
   }

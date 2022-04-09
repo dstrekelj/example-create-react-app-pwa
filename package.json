@@ -1,11 +1,14 @@
 {
   "scripts": {
     "start-all": "npm-run-all --parallel server:start client:start proxy:start",
+    "start-all:prod": "npm run client:build && npm-run-all --parallel server:start proxy:start:prod",
     "start-server": "npm-run-all --parallel server:start proxy:start",
     "start-client": "npm-run-all --parallel client:start proxy:start",
+    "client:build": "npm --prefix client run build",
     "client:start": "npm --prefix client run start",
     "postinstall": "npm --prefix proxy install && npm --prefix server install && npm --prefix client install",
     "proxy:start": "npm --prefix proxy run start",
+    "proxy:start:prod": "npm --prefix proxy run start:prod",
     "server:start": "npm --prefix server run start"
   },
   "dependencies": {

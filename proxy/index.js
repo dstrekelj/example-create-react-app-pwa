@@ -16,7 +16,12 @@ app.use(
 );
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.resolve(__dirname, "../client/build")));
+  app.use(
+    express.static(path.resolve(__dirname, "../client/build"), {
+      etag: false,
+      cacheControl: false,
+    }),
+  );
 } else {
   app.use(
     "/",

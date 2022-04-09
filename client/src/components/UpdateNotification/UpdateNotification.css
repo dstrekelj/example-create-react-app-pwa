@@ -1,0 +1,11 @@
+.UpdateNotification {
+  background: var(--color-primary-light);
+  padding: 16px;
+  text-align: center;
+}
+
+.UpdateNotification button {
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+}

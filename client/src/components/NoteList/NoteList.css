@@ -1,0 +1,30 @@
+.NoteList > div {
+  border: 1px solid var(--color-text-light);
+  margin: 16px 0;
+}
+.NoteList.NoteList--empty > div {
+  padding: 8px;
+  border-style: dotted;
+  text-align: center;
+  color: var(--color-text-light);
+}
+.NoteList > div > div:first-child {
+  display: block;
+  width: 100%;
+  line-height: 1.5;
+  border-bottom: 1px dashed var(--color-text-light);
+  padding: 8px;
+}
+.NoteList > div > div:nth-child(2) {
+  text-align: right;
+}
+.NoteList > div > div > button {
+  height: 40px;
+  padding: 8px 16px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.NoteList > div > div > button:hover,
+.NoteList > div > div > button:focus {
+  color: var(--color-primary);
+}

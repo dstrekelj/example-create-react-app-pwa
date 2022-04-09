@@ -1,0 +1,8 @@
+:root {
+  --color-primary: #4d01e0;
+  --color-primary-light: #c9aeff;
+  --color-error: #ff4141;
+  --color-text: #000;
+  --color-text-inverted: #fff;
+  --color-text-light: #999;
+}

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import "./NoteForm.css";
 
 const initialState = {
   text: "",
@@ -43,8 +44,20 @@ export const NoteForm = (props) => {
   );
 
   return (
-    <form onSubmit={handleSubmit} onReset={handleReset}>
-      <input type="text" name="text" onChange={handleChange} value={state.text} required />
+    <form
+      className="NoteForm"
+      onSubmit={handleSubmit}
+      onReset={handleReset}
+      autoComplete="off"
+    >
+      <input
+        type="text"
+        name="text"
+        onChange={handleChange}
+        value={state.text}
+        placeholder="Leave a note..."
+        required
+      />
       <button type="submit">Submit</button>
       <button type="reset">Clear</button>
     </form>

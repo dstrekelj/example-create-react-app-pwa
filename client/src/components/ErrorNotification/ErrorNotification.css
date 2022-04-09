@@ -1,0 +1,6 @@
+.ErrorNotification {
+  background: var(--color-error);
+  color: var(--color-text);
+  padding: 16px;
+  text-align: center;
+}
